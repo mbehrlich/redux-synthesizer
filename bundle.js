@@ -22395,13 +22395,14 @@
 	  var state = arguments.length <= 0 || arguments[0] === undefined ? [] : arguments[0];
 	  var action = arguments[1];
 	
-	  var keyIndex = state.indexOf(action.key);
-	  var validKeys = ['a', 's', 'd', 'f', 'g'];
-	  var keyMap = { 'a': 'C5', 's': 'D5', 'd': 'E5', 'f': 'F5', 'g': 'G5' };
+	
+	  // let validKeys = [65, 83, 68, 70, 71];
+	  var keyMap = { 65: 'C5', 83: 'D5', 68: 'E5', 70: 'F5', 71: 'G5' };
+	  var keyIndex = state.indexOf(keyMap[action.key]);
 	  switch (action.type) {
 	    case "KEY_PRESSED":
 	      if (keyIndex === -1 && keyMap[action.key] !== undefined) {
-	        return [].concat(_toConsumableArray(state), [action.key]);
+	        return [].concat(_toConsumableArray(state), [keyMap[action.key]]);
 	      } else {
 	        return state;
 	      }
@@ -22436,14 +22437,14 @@
 	
 	var keyPressed = exports.keyPressed = function keyPressed(key) {
 	  return {
-	    action: NotesConstants.KEY_PRESSED,
+	    type: NotesConstants.KEY_PRESSED,
 	    key: key
 	  };
 	};
 	
 	var keyReleased = exports.keyReleased = function keyReleased(key) {
 	  return {
-	    action: NotesConstants.KEY_RELEASED,
+	    type: NotesConstants.KEY_RELEASED,
 	    key: key
 	  };
 	};
@@ -23266,6 +23267,10 @@
 	
 	var _note2 = _interopRequireDefault(_note);
 	
+	var _note_key = __webpack_require__(206);
+	
+	var _note_key2 = _interopRequireDefault(_note_key);
+	
 	var _tones = __webpack_require__(204);
 	
 	var _jquery = __webpack_require__(205);
@@ -23300,12 +23305,12 @@
 	  _createClass(Synth, [{
 	    key: 'onKeyDown',
 	    value: function onKeyDown(e) {
-	      this.props.keyPressed(e.key);
+	      this.props.keyPressed(e.keyCode);
 	    }
 	  }, {
 	    key: 'onKeyUp',
 	    value: function onKeyUp(e) {
-	      this.props.keyReleased(e.key);
+	      this.props.keyReleased(e.keyCode);
 	    }
 	  }, {
 	    key: 'componentDidMount',
@@ -23324,8 +23329,8 @@
 	    value: function playNotes() {
 	      var _this3 = this;
 	
-	      this.notes.forEach(function (note) {
-	        if (_this3.props.store.indexOf(!!!!note) !== -1) {
+	      this.notes.forEach(function (note, idx) {
+	        if (_this3.props.notes.indexOf(_tones.NOTE_NAMES[idx]) !== -1) {
 	          note.start();
 	        } else {
 	          note.stop();
@@ -23339,9 +23344,8 @@
 	      var notes = this.notes.map(function (note, idx) {
 	        return _react2.default.createElement(
 	          'li',
-	          { key: idx },
-	          'note ',
-	          idx
+	          { key: _tones.NOTE_NAMES[idx] },
+	          _react2.default.createElement(_note_key2.default, { noteName: _tones.NOTE_NAMES[idx] })
 	        );
 	      });
 	      return _react2.default.createElement(
@@ -33497,6 +33501,33 @@
 	return jQuery;
 	} );
 
+
+/***/ },
+/* 206 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var NoteKey = function NoteKey(_ref) {
+	  var noteName = _ref.noteName;
+	  return _react2.default.createElement(
+	    "div",
+	    { className: "key" },
+	    noteName
+	  );
+	};
+	
+	exports.default = NoteKey;
 
 /***/ }
 /******/ ]);

@@ -1,5 +1,6 @@
 import React from 'react';
 import Note from '../../util/note';
+import NoteKey from './note_key';
 import {TONES, NOTE_NAMES} from '../../util/tones';
 import $ from 'jquery';
 
@@ -15,11 +16,11 @@ class Synth extends React.Component {
   }
 
   onKeyDown(e) {
-    this.props.keyPressed(e.key);
+    this.props.keyPressed(e.keyCode);
   }
 
   onKeyUp(e) {
-    this.props.keyReleased(e.key);
+    this.props.keyReleased(e.keyCode);
   }
 
   componentDidMount() {
@@ -28,8 +29,8 @@ class Synth extends React.Component {
   }
 
   playNotes() {
-    this.notes.forEach( note => {
-      if (this.props.store.indexOf(!!!!note) !== -1) {
+    this.notes.forEach( (note, idx) => {
+      if (this.props.notes.indexOf(NOTE_NAMES[idx]) !== -1) {
         note.start();
       } else {
         note.stop();
@@ -40,7 +41,7 @@ class Synth extends React.Component {
   render() {
     this.playNotes();
     let notes = this.notes.map((note, idx) => (
-      <li key={idx}>note {idx}</li>
+      <li key={NOTE_NAMES[idx]}><NoteKey noteName={NOTE_NAMES[idx]} /></li>
     ));
     return (
       <ul>

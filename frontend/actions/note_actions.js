@@ -6,13 +6,13 @@ export const NotesConstants = {
 };
 
 export const keyPressed = key => ({
-  action: NotesConstants.KEY_PRESSED,
+  type: NotesConstants.KEY_PRESSED,
   key
 });
 
 export const keyReleased = key => {
   return {
-    action: NotesConstants.KEY_RELEASED,
+    type: NotesConstants.KEY_RELEASED,
     key
   };
 };

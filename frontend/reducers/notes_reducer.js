@@ -2,13 +2,14 @@ import {NotesConstants} from '../actions/note_actions';
 
 
 const notes = (state = [], action) => {
-  let keyIndex = state.indexOf(action.key);
-  let validKeys = ['a', 's', 'd', 'f', 'g'];
-  let keyMap = {'a': 'C5', 's': 'D5', 'd': 'E5', 'f': 'F5', 'g': 'G5'};
+
+  // let validKeys = [65, 83, 68, 70, 71];
+  let keyMap = {65: 'C5', 83: 'D5', 68: 'E5', 70: 'F5', 71: 'G5'};
+  let keyIndex = state.indexOf(keyMap[action.key]);
   switch (action.type) {
     case "KEY_PRESSED":
       if (keyIndex === -1 && keyMap[action.key] !== undefined) {
-        return [...state, action.key];
+        return [...state, keyMap[action.key]];
       } else {
         return state;
       }
