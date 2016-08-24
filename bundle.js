@@ -22384,7 +22384,7 @@
 	exports.default = (0, _redux.combineReducers)({
 	  notes: _notes_reducer2.default,
 	  tracks: _tracks_reducer2.default,
-	  isRecording: _is_recording_reducer2.default
+	  recording: _is_recording_reducer2.default
 	});
 
 /***/ },
@@ -23224,6 +23224,10 @@
 	
 	var _synth_container2 = _interopRequireDefault(_synth_container);
 	
+	var _recorder_container = __webpack_require__(212);
+	
+	var _recorder_container2 = _interopRequireDefault(_recorder_container);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -23247,7 +23251,8 @@
 	      return _react2.default.createElement(
 	        'div',
 	        null,
-	        _react2.default.createElement(_synth_container2.default, null)
+	        _react2.default.createElement(_synth_container2.default, null),
+	        _react2.default.createElement(_recorder_container2.default, null)
 	      );
 	    }
 	  }]);
@@ -33632,14 +33637,14 @@
 	  ADD_NOTES: "ADD_NOTES"
 	};
 	
-	var StartRecording = exports.StartRecording = function StartRecording() {
+	var startRecording = exports.startRecording = function startRecording() {
 	  return {
 	    type: TracksConstants.START_RECORDING,
 	    timeNow: Date.now()
 	  };
 	};
 	
-	var StopRecording = exports.StopRecording = function StopRecording() {
+	var stopRecording = exports.stopRecording = function stopRecording() {
 	  return {
 	    type: TracksConstants.STOP_RECORDING,
 	    timeNow: Date.now()
@@ -50409,6 +50414,83 @@
 		return module;
 	}
 
+
+/***/ },
+/* 212 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _reactRedux = __webpack_require__(192);
+	
+	var _recorder = __webpack_require__(213);
+	
+	var _recorder2 = _interopRequireDefault(_recorder);
+	
+	var _track_actions = __webpack_require__(209);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var mapStateToProps = function mapStateToProps(state) {
+	  return {
+	    tracks: state.tracks,
+	    isRecording: state.recording
+	  };
+	};
+	
+	var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+	  return {
+	    startRecording: function startRecording() {
+	      return dispatch((0, _track_actions.startRecording)());
+	    },
+	    stopRecording: function stopRecording() {
+	      return dispatch((0, _track_actions.stopRecording)());
+	    },
+	    addNotes: function addNotes(notes) {
+	      return dispatch((0, _track_actions.addNotes)(notes));
+	    }
+	  };
+	};
+	
+	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(_recorder2.default);
+
+/***/ },
+/* 213 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var Recorder = function Recorder(props) {
+	  console.log(props);
+	  var start = "";
+	  var stop = "";
+	  // if (recording) {
+	  //   start = "disabled";
+	  // } else {
+	  //   stop = "disabled";
+	  // }
+	  return _react2.default.createElement(
+	    "div",
+	    null,
+	    "asdf"
+	  );
+	};
+	
+	exports.default = Recorder;
 
 /***/ }
 /******/ ]);

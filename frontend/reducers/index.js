@@ -6,5 +6,5 @@ import recording from './is_recording_reducer';
 export default combineReducers({
   notes: notes,
   tracks: tracks,
-  isRecording: recording
+  recording: recording
 });

@@ -4,12 +4,12 @@ export const TracksConstants = {
   ADD_NOTES: "ADD_NOTES"
 };
 
-export const StartRecording = () => ({
+export const startRecording = () => ({
   type: TracksConstants.START_RECORDING,
   timeNow: Date.now()
 });
 
-export const StopRecording = () => ({
+export const stopRecording = () => ({
   type: TracksConstants.STOP_RECORDING,
   timeNow: Date.now()
 });
